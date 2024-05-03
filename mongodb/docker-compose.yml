@@ -1,0 +1,21 @@
+version: '3.8'
+
+networks:
+  mongodb:
+    name: mongodb
+
+services:    
+  mongo-db:
+    image: mongo:5.0
+    restart: unless-stopped
+    ports:
+      - 27022:27017
+    env_file: 
+      - ./.env.db
+    volumes:
+      - ./init-script/init-mongo.sh:/docker-entrypoint-initdb.d/init-mongo.sh:ro
+      - ~/mongodb/configdb:/data/configdb
+      - ~/mongodb/db:/data/db
+      - ~/mongodb/backup:/opt/backup
+    networks:
+      - mongodb
