@@ -1,0 +1,21 @@
+version: '3.8'
+
+networks:
+  jenkins:
+    name: jenkins
+
+services:
+  jenkins:
+    container_name: jenkins
+    image: jenkins/jenkins:lts
+    hostname: jenkins
+    privileged: true
+    user: root
+    restart: unless-stopped
+    ports:
+      - 8183:8080
+      - 54867:50000
+    volumes:
+      - ~/jenkins_home:/var/jenkins_home
+    networks:
+      - jenkins
